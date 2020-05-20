@@ -1,7 +1,0 @@
-Comandos utiles en caso de que se te olvide
-
-git init 
-git add README.md 
-git commit -m "first commit" 
-git remote add origin https://github.com/ArmandoHer/Proyecto-SSPED-I.git
- git push -u maestro de origen

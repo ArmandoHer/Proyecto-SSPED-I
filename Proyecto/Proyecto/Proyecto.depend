@@ -1,0 +1,158 @@
+# depslib dependency file v1.0
+1588171138 source:c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\proyecto\estudiante.cpp
+	<iostream>
+
+1588171213 source:c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\proyecto\main.cpp
+	<iostream>
+	"Estudiante.cpp"
+
+1588171492 c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\proyecto\estudiante.cpp
+	<iostream>
+
+1589229141 source:c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\estudiante.cpp
+	<iostream>
+
+1589224592 source:c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\main.cpp
+	<iostream>
+	"tareas.cpp"
+	"Estudiante.cpp"
+	"calificacion.cpp"
+	"materia.cpp"
+	"participacion.cpp"
+	"Lista.h"
+
+1589222238 c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\tareas.cpp
+	<iostream>
+
+1589222176 c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\estudiante.cpp
+	<iostream>
+
+1589216375 c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\calificacion.cpp
+	<iostream>
+
+1589219603 c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\materia.cpp
+	<iostream>
+	"nodo.h"
+	"Lista.h"
+
+1589219322 c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\nodo.h
+
+1589225033 c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\lista.h
+	<iostream>
+	"nodo.h"
+
+1589218749 c:\users\luis adrian\desktop\tareas\universidad\2do semestre\seminario estructura de datos\proyecto\participacion.cpp
+	<iostream>
+
+1589229142 source:c:\users\rolando_quintero\desktop\proyecto\estudiante.cpp
+	<iostream>
+
+1589246930 source:c:\users\rolando_quintero\desktop\proyecto\main.cpp
+	<iostream>
+	"tareas.cpp"
+	"Estudiante.cpp"
+	"calificacion.cpp"
+	"materia.cpp"
+	"participacion.cpp"
+	"Lista.h"
+
+1589234938 c:\users\rolando_quintero\desktop\proyecto\tareas.cpp
+	<iostream>
+
+1589229142 c:\users\rolando_quintero\desktop\proyecto\estudiante.cpp
+	<iostream>
+
+1589216376 c:\users\rolando_quintero\desktop\proyecto\calificacion.cpp
+	<iostream>
+
+1589248134 c:\users\rolando_quintero\desktop\proyecto\materia.cpp
+	<iostream>
+	<iomanip>
+	<cstdio>
+	"nodo.h"
+	"Lista.h"
+
+1589219324 c:\users\rolando_quintero\desktop\proyecto\nodo.h
+
+1589244627 c:\users\rolando_quintero\desktop\proyecto\lista.h
+	<iostream>
+	"nodo.h"
+
+1589218750 c:\users\rolando_quintero\desktop\proyecto\participacion.cpp
+	<iostream>
+
+1589229142 source:c:\users\rivera alvarado\desktop\nueva carpeta (2)\proyecto\estudiante.cpp
+	<iostream>
+
+1589394369 source:c:\users\rivera alvarado\desktop\nueva carpeta (2)\proyecto\main.cpp
+	<iostream>
+	"tareas.cpp"
+	"Estudiante.cpp"
+	"calificacion.cpp"
+	"materia.cpp"
+	"participacion.cpp"
+	"Lista.h"
+
+1589234940 c:\users\rivera alvarado\desktop\nueva carpeta (2)\proyecto\tareas.cpp
+	<iostream>
+
+1589229142 c:\users\rivera alvarado\desktop\nueva carpeta (2)\proyecto\estudiante.cpp
+	<iostream>
+
+1589216376 c:\users\rivera alvarado\desktop\nueva carpeta (2)\proyecto\calificacion.cpp
+	<iostream>
+
+1589248136 c:\users\rivera alvarado\desktop\nueva carpeta (2)\proyecto\materia.cpp
+	<iostream>
+	<iomanip>
+	<cstdio>
+	"nodo.h"
+	"Lista.h"
+
+1589219324 c:\users\rivera alvarado\desktop\nueva carpeta (2)\proyecto\nodo.h
+
+1589391394 c:\users\rivera alvarado\desktop\nueva carpeta (2)\proyecto\lista.h
+	<iostream>
+	"nodo.h"
+
+1589218750 c:\users\rivera alvarado\desktop\nueva carpeta (2)\proyecto\participacion.cpp
+	<iostream>
+
+1589225542 source:c:\users\ing. francisco ayala\desktop\nueva carpeta\proyecto-ssped-i\proyecto\proyecto\estudiante.cpp
+	<iostream>
+
+1590012865 source:c:\users\ing. francisco ayala\desktop\nueva carpeta\proyecto-ssped-i\proyecto\proyecto\main.cpp
+	<iostream>
+	"tareas.cpp"
+	"Estudiante.cpp"
+	"calificacion.cpp"
+	"materia.cpp"
+	"participacion.cpp"
+	"Lista.h"
+
+1590013592 c:\users\ing. francisco ayala\desktop\nueva carpeta\proyecto-ssped-i\proyecto\proyecto\tareas.cpp
+	<iostream>
+	<stdio.h>
+
+1589225542 c:\users\ing. francisco ayala\desktop\nueva carpeta\proyecto-ssped-i\proyecto\proyecto\estudiante.cpp
+	<iostream>
+
+1589212776 c:\users\ing. francisco ayala\desktop\nueva carpeta\proyecto-ssped-i\proyecto\proyecto\calificacion.cpp
+	<iostream>
+
+1589244536 c:\users\ing. francisco ayala\desktop\nueva carpeta\proyecto-ssped-i\proyecto\proyecto\materia.cpp
+	<iostream>
+	<iomanip>
+	<cstdio>
+	"nodo.h"
+	"Lista.h"
+
+1589215724 c:\users\ing. francisco ayala\desktop\nueva carpeta\proyecto-ssped-i\proyecto\proyecto\nodo.h
+
+1590011798 c:\users\ing. francisco ayala\desktop\nueva carpeta\proyecto-ssped-i\proyecto\proyecto\lista.h
+	<iostream>
+	"nodo.h"
+
+1589215150 c:\users\ing. francisco ayala\desktop\nueva carpeta\proyecto-ssped-i\proyecto\proyecto\participacion.cpp
+	<iostream>
+
