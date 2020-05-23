@@ -6,6 +6,7 @@
 //#include "participacion.cpp"
 //#include "tareas.cpp"
 #include "nodo.h"
+#include "participacion.cpp"
 #include "Lista.h"
 
 using namespace std;
@@ -15,6 +16,7 @@ class Materia{
     private:
 
     ///Datos
+    List <Calificacion> calificaciones;
     List <string> SE;//ST=String Estudiante
     List <int> ST;//ST=String Tarea
     List <string>SC;//SC=String Calificaciones
@@ -24,17 +26,34 @@ class Materia{
     string modulo;
     string ciclo;
     string aula;
-    fecha fecha_inicio;
-    fecha fecha_fin;
     string dias;
     string seccion;
+    fecha fecha_inicio;
+    fecha fecha_fin;
     fecha horario;
     string re;
     int rr;
-
+    int porcentajeTareas;
+    int porcentajeParticipacion;
     public:
 
     ///Setters
+
+    void setPorcentajeTareas(int p){
+        porcentajeTareas = p;
+    }
+
+    void setPorcentajeParticipacion(int p){
+        porcentajeParticipacion = p;
+    }
+
+    int getPorcentajeTareas(){
+        return porcentajeTareas;
+    }
+
+    int getPorcentajeParticipacion(){
+        return porcentajeParticipacion;
+    }
 
     void set_nombre(const string& name){
         nombre=name;
@@ -166,18 +185,24 @@ class Materia{
         return re;
 	}
 
-	string toString(){
+
+
+	std::string toString(){
  //   cout<< nombre << " || "<< NRC<< " || "<<" || "<<clave<<" || "<<modulo<<" || "<<ciclo<<" || "<<aula<<" || "<<fecha_inicio<<" || "<<fecha_fin<<" || "<< dias<<" || "
  //	 <<seccion<<" || "<<horario;
 
 	 cout<< nombre << " || "<< NRC<<" || "<<clave<<" || "<<modulo<<" || "<<ciclo<<" || "<<aula<<" || "<< dias<<" || "
 	 <<seccion<<" || " <<fecha_inicio.getHora()<<":" << fecha_inicio.getMinuto()<<":"
-	 <<fecha_fin.getHora()<<":"<<fecha_fin.getMinuto();
+	 <<fecha_fin.getHora()<<":"<<fecha_fin.getMinuto()
+	 <<" || Criterios de evaluacion: \n"
+	 <<"  porcentaje participacion: "<<porcentajeParticipacion
+	 <<"  porcentaje tareas: "<<porcentajeTareas ;
 	 cout<<endl;
 	 cout<<"Estudiantes: ";//SE.print_list();
 	 printSE();
 	 cout<<"Tareas: ";
 	 printST();
+	 return "";
 	}
 
     void printSE(){
@@ -194,4 +219,82 @@ class Materia{
          cout<<endl;
 	 }
 
+    void addCalificacion( float puntaje, std::string cAlumno, std::string cMateria ){
+        Calificacion cNueva;
+
+        cNueva.setPuntaje( puntaje );
+        cNueva.setCodigoAlumno(cAlumno);
+        cNueva.setCodigoMateria(cMateria);
+
+        calificaciones.insertInList(cNueva);
+    }
+
+    std::string calificacionesToString(){
+        return calificaciones.toString();
+    }
+
+    /*
+        utilizando sus propios criterios de evaluacion buscamos al
+            estudiante y sus entregas
+    */
+    float calificar(std::string NRCmateria, std::string codigoAlumno, List<Participacion> par, List<Entrega> entes ){
+        bool alumnoEncontrado;
+        /*
+            Buscaremos el codigo de alumno, si esta entonces podemos seguir
+        */
+        for( int i = 0; i < SE.getSize(); i++  ){
+            if( codigoAlumno == SE.retrieve( i ) ){
+                alumnoEncontrado = true;
+                break;
+            }
+        }
+        if( alumnoEncontrado){
+                ///puntajes para el alumno
+            float puntajeTotal(0), puntajeTareas, puntajeParticipaciones;
+            int totalmisParticipaciones(0);
+            float promedioTareas, promedioParticipaciones;
+        //Busqueda de tareas
+            for( int i = 0; i <ST.getSize(); i++){
+                    for( int j = 0; j <entes.getSize(); j++){
+                            /*
+                                Si el codigo de tarea existe en esta materia y tiene
+                                    el codigo del estudiante ingresado se agrega a la
+                                    calificacion
+                            */
+                        if( entes.retrieve(j).getIdTarea() ==  ST.retrieve(i) &&
+                                    entes.retrieve(j).getCodigoAlumno() == codigoAlumno  ){
+                            promedioTareas += entes.retrieve(j).getPuntaje();
+                        }
+                    }
+            }///fin busqueda calificaciones
+
+            for( int i = 0; i <par.getSize(); i++){
+
+                            /*
+                                Si el codigo de participacion tiene el de la clase y el alumno
+                                    lo tomamos
+                            */
+                        if( par.retrieve(i).get_CodigoDeCurso() ==  NRCmateria &&
+                                    par.retrieve(i).get_CodigoDeEstudiante() == codigoAlumno  ){
+                            promedioParticipaciones += entes.retrieve(i).getPuntaje();
+                            totalmisParticipaciones++;
+                        }
+            }///fin agregado de participaciones
+
+            puntajeTareas = ( promedioTareas/100 ) * porcentajeTareas;
+            puntajeParticipaciones= ( promedioParticipaciones/100 ) * porcentajeParticipacion;
+            puntajeTotal = puntajeTareas+puntajeParticipaciones;
+            addCalificacion( puntajeTotal, codigoAlumno, NRCmateria);
+            return puntajeTotal;
+        }
+        //En caso de no encontrar el alumno
+        return -1.0;
+    }
+
 };
+
+
+
+
+
+

@@ -68,6 +68,16 @@ class estudiante{
         friend istream& operator >> (istream&, estudiante&);
 
         string toString(){
-            cout<<nombre<<" || "<< apellido<<" || "<<codigo<<" || "<<carrera<<" || "<<correo;
+            string str("");
+            str+="Datos del  estudiantes:\ncodigo:";
+            str+=codigo;
+            str+=" || nombre: ";
+            str+=nombre;
+            str+=" || apellido: ";
+            str+=apellido;
+            str+=" || carrera: ";
+            str+= carrera;
+            str+=" || correo: ";
+            str+= correo;
         }
 };

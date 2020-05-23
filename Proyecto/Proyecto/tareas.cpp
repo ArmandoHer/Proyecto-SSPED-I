@@ -60,31 +60,67 @@ private:
         - EL id de tarea nos indicara a que tarea pertenece esta Entrega
         - El codigo de alumno muestra la pertenencia de el trabajo entregado
     */
+    int id;
     int idTarea;
+    int puntaje;
     std::string codigoAlumno;
     std::string Archivo;
 public:
 
+    int getId(){
+        return id;
+    }
+
+    int getPuntaje(){
+        return puntaje;
+    }
     int getIdTarea(){
-    return idTarea;
+        return idTarea;
     }
     std::string getCodigoAlumno(){
-    return codigoAlumno;
+        return codigoAlumno;
     }
     std::string getArchivo(){
-    return Archivo;
+        return Archivo;
     }
+
 
     void setIdTarea(int t){
-    idTarea = t;
+        idTarea = t;
     }
     void setCodigoAlumno(std::string c){
-    codigoAlumno = c;
+        codigoAlumno = c;
     }
     void setArchivo(std::string a){
-    Archivo = a;
+        Archivo = a;
     }
 
+
+    void setPuntaje(int p){
+        puntaje = p;
+    }
+    void setId(int i){
+        id = i;
+    }
+
+    string toString(){
+            string str("");
+            char aId[10], aPun[8], aIdT[10];
+            sprintf( aId, "%i", id );
+            sprintf( aPun, "%i", puntaje);
+            sprintf( aIdT, "%i", idTarea );
+            str+="-- Id: ";
+            str+= aId;
+            str+= " || puntaje: ";
+            str+= aPun;
+            str+= " ||  idTarea: ";
+            str+= aIdT;
+            str+= "\n codigo alumno: ";
+            str+= codigoAlumno;
+            str+= " || Archivo: ";
+            str+= Archivo;
+            str+= "\n";
+     }
 };
 
 class Tarea{
@@ -173,4 +209,25 @@ class Tarea{
             str +=aCalif;
             return str;
         }
+
+        bool operator == (const Tarea& t)const{
+            return id == t.id;
+        }
+        bool operator != (const Tarea& t)const{
+            return id != t.id;
+        }
+
+        bool operator <  (const Tarea& t)const{
+            return id < t.id;
+        }
+        bool operator  > (const Tarea& t)const{
+            return id > t.id;
+        }
+        bool operator <= (const Tarea& t)const{
+            return id <= t.id;
+        }
+        bool operator >= (const Tarea& t)const{
+            return id >= t.id;
+        }
 };
+

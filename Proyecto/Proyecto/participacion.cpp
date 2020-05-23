@@ -1,15 +1,18 @@
+#ifndef PARTICIPACION_CPP_INCLUDE
+#define PARTICIPACION_CPP_INCLUDE
 #include <iostream>
 //#include "tareas.cpp"
 
 using namespace std;
 
 class Participacion{
-
 private:
 
+    static int idAutoIncrement;
+    int id;
     string codigo_estudiante;
     fecha fecha_de_participacion;
-    string Codigo_de_curso;
+    string Codigo_de_curso;//Funcionara como NRC de materia
 
 public:
 
@@ -34,4 +37,50 @@ public:
         return Codigo_de_curso;
     }
 
+    void setId( int i ){
+            id = i;
+    }
+
+    int getId(){
+        return id;
+    }
+
+    bool operator == (const Participacion& t)const{
+        return id == t.id;
+    }
+    bool operator != (const  Participacion& t)const{
+        return id != t.id;
+    }
+
+    bool operator <  (const Participacion& t)const{
+        return id < t.id;
+    }
+    bool operator  > (const  Participacion& t)const{
+        return id > t.id;
+    }
+    bool operator <= (const  Participacion& t)const{
+        return id <= t.id;
+    }
+    bool operator >= (const  Participacion& t)const{
+        return id >= t.id;
+    }
+
+    string toString(){
+        string str("");
+        char aId[10];
+        sprintf( aId, "%i", id );
+        str += "Id: ";
+        str += aId;
+        str += "|| codigo estudiante: ";
+        str += codigo_estudiante;
+        str += "||\nFecha de participacion: ";
+        str += fecha_de_participacion.toString();
+        str += "||codigo de curso:";
+        str += Codigo_de_curso;
+
+        return str;
+
+    }
+
 };
+#endif // LSITA_H_INCLUDED

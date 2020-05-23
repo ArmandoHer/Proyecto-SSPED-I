@@ -140,7 +140,7 @@ T List<T>::retrieve(int& pos)
     return current->data;
 }
 
-
+//Metodo de busqueda linear que nos recupera el puntero del objeto T
 template <class T>
 T* List<T>::retrieve2(int& pos)
 {
@@ -188,4 +188,6 @@ void List<T>::modifyTarea(string ndata, int tarea){
         temp=temp->next;
 	    }
 }
+
+
 #endif // LSITA_H_INCLUDED

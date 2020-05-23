@@ -10,9 +10,21 @@ using namespace std;
 ///Funciones que registran todo
 void ReEs(estudiante&, List<estudiante>&);
 void ReMa(Materia&, List<Materia>&, fecha& f);
+///Funciones para tareas
 void ReTa( List<Tarea>&);
 void modTa( List<Tarea>&, int idTarea);
 void delTa( List <Tarea>&Tas, int idTarea);
+
+///Funciones para participaciones
+void delPa( List <Participacion>&Tas, int idParticipacion);
+void modPa( List < Participacion>&Tas, int  idParticipacion);
+void RePa( List < Participacion>& Tas);
+
+void ReEn( List<Entrega>& , List<Tarea> , List<estudiante> );
+void ModEn( List<Entrega>& , List<Tarea> , List<estudiante> , int idEntrega);
+void DelEn( List<Entrega>& , int  idEntrega);
+
+void calificarMateria( List<Materia>& LM, List<Participacion> par, List<Entrega> ene );
 
 bool validateNRC(List<Materia> LL,string nrc){
 bool result=true;
@@ -28,25 +40,44 @@ bool result=true;
 return result;
 }
 
+/*
+No, el avance pasado ya contempla el registro tanto
+de tareas como participación, en el 5 toman las calificaciones
+y las ponderan con los criterios de evaluación de la materia.
+
+Por ejemplo,
+si un alumno esta registrado en una materia, donde habia 10 tareas
+y todas las entrego y en todas tiene 100, en el avance 5 se recupera
+esa información junto con los criterios de evaluación de la materia y
+ si por ejemplo, las tareas valen 20% en la materia, ese alumno sumaria
+ 20 puntos a su calificación, esto se repite para el resto de criterios de
+ evaluación.
+*/
+
 int main()
 {
     List<Materia> LM;
     List<estudiante> LE;
     List<Tarea> LT;
     List<Calificacion> LC;
+    List< Participacion> LP ;
+    List<Entrega>LEntre;
     Materia a;
     estudiante b;
     Tarea c;
-    Calificacion d;
+    //Calificacion d;
     fecha f;
     int x,y,w;
     string Str,Str2;
 do{
     cout<<"Con que deseas trabajar?"<<endl;
-    cout<<"1.Materias"<<endl;
-    cout<<"2.Estudiantes"<<endl;
-    cout<<"3.Tareas"<<endl;
-    cout<<"4.Salir"<<endl;
+    cout<<"1- Materias"<<endl;
+    cout<<"2- Estudiantes"<<endl;
+    cout<<"3- Tareas"<<endl;
+    cout<<"4- Participaciones"<<endl;
+    cout<<"5- Entregas"<<endl,
+    cout<<"6- Calificaciones"<<endl;
+    cout<<"7- Salir"<<endl;
     cin>>x;
     cout<<endl;
 
@@ -159,11 +190,15 @@ do{
 
         case 3:
             do{
-                cout<<"Que desea realizar?"<<endl<<endl;
+                cout<<"--------------------------"<<endl;
+                cout<<"Modulo de tareas"<<endl;
+                cout<<"-----\nQue desea realizar?"<<endl<<endl;
                 cout<<"1.Registrar nueva tarea"<<endl;
                 cout<<"2.Modificar tareas"<<endl;
-                cout<<"3.Ver todas las tareas registradas"<<endl;
-                cout<<"3.Salir"<<endl;
+                cout<<"3.Eliminar tareas"<<endl;
+                cout<<"4.Ver todas las tareas registradas"<<endl;
+                cout<<"5.Buscar tareas"<<endl;
+                cout<<"6.Salir"<<endl;
                 cin>>w;
                     switch(w)
                     {
@@ -178,20 +213,169 @@ do{
                             break;
                         }
                         case 3:{
-                            LT.print_list();
-                            break;
-                        }case 4:{
                             int id;
-                            cout<<"Escriba el id de la tarea a modificar"<<endl;
+                            cout<<"Escriba el id de la tarea a eliminar"<<endl;
                             cin>>id;
                             delTa(LT, id);
                             break;
+                        } case 4:{
+                            int idTarea, indice(-1);
+                            cout<<"Escriba el id de la tarea a encontrar"<<endl;
+                            cin>>idTarea;
+                            for( int i = 0; i < LT.getSize(); i++){
+                            if( idTarea == LT.retrieve( i ).getId() ){
+                                            indice = i;
+                                            break;
+                                    }
+                            }
+                            if( indice > -1){
+
+                                cout<<LT.retrieve(indice).toString()<<endl;
+
+                            } else {
+                                cout<<"El id de la tarea no existe"<<endl;
+                            }
+                            break;
+                         }
+                        case 5:{
+                            LT.print_list();
+                            break;
                         }
                     }
-            }while(w!=5);
+            }while(w!=6);
             break;
+        //Modulos para tareas
+        case 4:{
+            do{
+                cout<<"--------------------------"<<endl;
+                cout<<"Modulo de participaciones"<<endl;
+                cout<<"-----\nQue desea realizar?"<<endl<<endl;
+                cout<<"1.Registrar nueva participacion"<<endl;
+                cout<<"2.Modificar participacion"<<endl;
+                cout<<"3.Eliminar participacion"<<endl;
+                cout<<"3.Buscar participacion"<<endl;
+                cout<<"5.Ver todas las participaciones registradas"<<endl;
+                cout<<"6.Salir"<<endl;
+                cin>>w;
+                    switch(w)
+                    {
+                        case 1:{
+                            RePa(  LP );
+                            break;
+                        }case 2:{
+                            int id;
+                            cout<<"Escriba el id de la participacion a modificar"<<endl;
+                            cin>>id;
+                            modPa(LP, id);
+                            break;
+                        }
+                        case 3:{
+                            int id;
+                            cout<<"Escriba el id de la participacion a eliminar"<<endl;
+                            cin>>id;
+                            delPa(LP, id);
+                            break;
+                        } case 4:{
+                            int idParticipacion, indice(-1);
+                            cout<<"Escriba el id de la participacion a encontrar"<<endl;
+                            cin>>idParticipacion;
+                            for( int i = 0; i < LP.getSize(); i++){
+                            if( idParticipacion== LP.retrieve( i ).getId() ){
+                                            indice = i;
+                                            break;
+                                    }
+                            }
+                            if( indice > -1){
+                                cout<<LP.retrieve(indice).toString()<<endl;
+                            } else {
+                                cout<<"El id de la tarea no existe"<<endl;
+                            }
+                            break;
+                         }
+                        case 5:{
+                            LP.print_list();
+                            break;
+                        }
+                    }
+            }while(w!=6);
+            break;
+        }
+
+        case 5:{
+            int opcEntregas =0;
+            do
+            {
+                cout<<"Entregas"<<endl;
+                cout<<"1- Registrar entrega"<<endl;
+                cout<<"2- Modificar entrega"<<endl;
+                cout<<"3- Eliminar entrega"<<endl;
+                cout<<"4- Calificar entrega"<<endl;
+                cout<<"5- Ver entregas"<<endl;
+                cout<<"6- Volver al menu principal"<<endl;
+                cout<<"Escriba la accion que desea realizar:"<<endl;
+                cin>>opcEntregas;
+                switch(opcEntregas){
+                    case 1:{
+                        ReEn( LEntre, LT, LE );
+                        break;
+                    }
+                    case 2:{
+                        int idEntrega;
+                        cout<<"-- Modificando entregas"<<endl;
+                        cout<<"-- Entregas disponibles"<<endl;
+                        cout<<LEntre.toString()<<endl;
+                        cout<<"Ingrese el id de la entrega(-1 para salir)"<<endl;
+                        cin>>idEntrega;
+                        if( idEntrega < -1 && idEntrega < LEntre.getSize() ){
+                            ModEn( LEntre, LT, LE, idEntrega );
+                        }
+                        break;
+                    }
+                    case 3:{
+                        int idEntrega;
+                        cout<<"-- Eliminando entregas"<<endl;
+                        cout<<"-- Entregas disponibles"<<endl;
+                        cout<<LEntre.toString()<<endl;
+                        cout<<"Ingrese el id de la entrega(-1 para salir)"<<endl;
+                        cin>>idEntrega;
+                        if( idEntrega < -1 && idEntrega < LEntre.getSize() ){
+                            DelEn( LEntre, idEntrega );
+                        }
+                        break;
+                    }
+                    case 4:{
+                        int idEntrega;
+                        cout<<"-- Calificando entregas"<<endl;
+                        cout<<"-- Entregas disponibles"<<endl;
+                        cout<<LEntre.toString()<<endl;
+                        cout<<"Ingrese el id de la entrega(-1 para salir)"<<endl;
+                        cin>>idEntrega;
+                        if( idEntrega < -1 && idEntrega < LEntre.getSize() ){
+                            Entrega* e = LEntre.retrieve2(idEntrega);
+                            int p;
+                            cout<<"Escriba el puntaje (calificacion/100)"<<endl;
+                            cin>>p;
+                            e->setPuntaje(p);
+                        }
+                        break;
+                    }
+                    case 5:{
+                        cout<<"-- Entregas disponibles"<<endl;
+                        cout<<LEntre.toString()<<endl;
+                        break;
+                    }
+
+                }
+            } while( opcEntregas != 6);
+        break;
+        }
+
+        case 6:{
+
+            break;
+        }
     }
-}while(x!=4);
+}while(x!=6);
 
     return 0;
 }
@@ -254,6 +438,15 @@ void ReMa(Materia& m, List<Materia>& l, fecha& f){
     f.setMinuto(stoi(Str2));
     m.set_Fecha_inicio(f);
 
+    int criterio;
+    cout<<"Criterios de evaluacion:"<<endl;
+    cout<<"Porcentaje valido para tareas: "<<endl;
+    cin>>criterio;
+    m.setPorcentajeTareas(criterio);
+    cout<<"Porcentaje valido para tareas: "<<endl;
+    cin>>criterio;
+    m.setPorcentajeParticipacion(criterio);
+
     cout<<"Hora en que termina:";
     cin>>Str;
     pos = Str.rfind(":");
@@ -261,23 +454,7 @@ void ReMa(Materia& m, List<Materia>& l, fecha& f){
     f.setHora(stoi(Str2));
     Str2 = Str.substr(pos+1,Str.size() );
     f.setMinuto(stoi(Str2));
-    /*
-    cout<<"Escriba los minutos a los que inicia la materia"<<endl;
-    cin>>y;
-    f.setMinuto(y);
-    cout<<"Escriba la hora a la que inicia la materia"<<endl;
-    cin>>y;
 
-    f.setHora(y);
-    a.set_Fecha_inicio(f);
-
-    cout<<"Escriba los minutos a los que termina la materia"<<endl;
-    cin>>y;
-    f.setMinuto(y);
-    cout<<"Escriba la hora a la que termina la materia"<<endl;
-    cin>>y;
-    f.setHora(y);
-    */
     m.set_Fecha_fin(f);
     fflush(stdin);
     cout<<"Cuales dias se va a impartir la materia?"<<endl;
@@ -332,7 +509,6 @@ void ReTa( List <Tarea>& Tas){
             Tas.insertInList(nueva);
             cout<<"Tarea registrada"<<endl;
 }
-
 
 void modTa( List <Tarea>&Tas, int idTarea){
     int datofecha;
@@ -389,7 +565,6 @@ void modTa( List <Tarea>&Tas, int idTarea){
 }
 
 void delTa( List <Tarea>&Tas, int idTarea){
-    int datofecha;
     int indice(-1);
     string Str;
     int y;
@@ -406,4 +581,212 @@ void delTa( List <Tarea>&Tas, int idTarea){
         cout<<"No hay una tarea registrada con ese id"<<endl;
     }
 }
+
+/*=========================================
+Funciones para las participaciones
+=========================================*/
+void RePa( List < Participacion>& Tas){
+             Participacion nueva;
+            fecha f;
+            int datofecha;
+            string Str;
+            int id;
+            //--Registro de la tarea
+            fflush(stdin);
+            cout<<"Codigo de estudiante:"<<endl;
+            getline(cin,Str);
+            nueva.set_CodigoDeEstudiante(Str);
+            cout<<"NRC de curso:"<<endl;
+            getline(cin,Str);
+            nueva.set_CodigoDeCurso(Str);
+            //-----
+            cout<<"Fecha de participacion:"<<endl<<endl;
+            cout<<"Escriba el dia:"<<endl;
+            cin>>datofecha;
+            f.setDia(datofecha);
+            cout<<"Escriba el mes:"<<endl;
+            cin>>datofecha;
+            f.setMes(datofecha);
+            cout<<"Escriba el anio:"<<endl;
+            cin>>datofecha;
+            f.setAnio(datofecha);
+            cout<<"Escriba la hora:"<<endl;
+            cin>>datofecha;
+            f.setHora(datofecha);
+            cout<<"Escriba los minutos:"<<endl;
+            cin>>datofecha;
+            f.setMinuto(datofecha);
+            nueva.set_FechaDeParticipacion(f);
+            cout<<"Id de participacion:"<<endl;
+            cin>>id;
+            nueva.setId(id);
+            Tas.insertInList(nueva);
+            cout<<"Participacion registrada"<<endl;
+}
+
+void modPa( List < Participacion>&Tas, int  idParticipacion){
+    int datofecha;
+    int indice(-1);
+    string Str;
+    int y;
+    //obtengo indice por el codigo
+    for( int i = 0; i < Tas.getSize(); i++){
+            if( idParticipacion == Tas.retrieve( i ).getId() ){
+                    indice = i;
+                    break;
+            }
+    }
+    if( indice > -1){
+            Participacion *editada =Tas.retrieve2(indice);
+            fecha f;
+            //Si no lo tengo no edito
+           fflush(stdin);
+            cout<<"Codigo de estudiante:"<<endl;
+            getline(cin,Str);
+            editada->set_CodigoDeEstudiante(Str);
+            cout<<"Codigo de curso:"<<endl;
+            getline(cin,Str);
+            editada->set_CodigoDeCurso(Str);
+            //-----
+            cout<<"Fecha de participacion:"<<endl<<endl;
+            cout<<"Escriba el dia:"<<endl;
+            cin>>datofecha;
+            f.setDia(datofecha);
+            cout<<"Escriba el mes:"<<endl;
+            cin>>datofecha;
+            f.setMes(datofecha);
+            cout<<"Escriba el anio:"<<endl;
+            cin>>datofecha;
+            f.setAnio(datofecha);
+            cout<<"Escriba la hora:"<<endl;
+            cin>>datofecha;
+            f.setHora(datofecha);
+            cout<<"Escriba los minutos:"<<endl;
+            cin>>datofecha;
+            f.setMinuto(datofecha);
+            editada->set_FechaDeParticipacion(f);
+            cout<<endl;
+            cout<<"Cacion editada"<<endl;
+            cout<<Tas.retrieve2(indice)->toString()<<endl;
+    } else {
+        cout<<"No hay una tarea registrada con ese id"<<endl;
+    }
+}
+
+void delPa( List <Participacion>&Tas, int idParticipacion){
+    int indice(-1);
+    string Str;
+    //obtengo indice por el codigo
+    for( int i = 0; i < Tas.getSize(); i++){
+            if( idParticipacion == Tas.retrieve( i ).getId() ){
+                    indice = i;
+                    break;
+            }
+    }
+    if( indice > -1){
+            Tas.deleteInList( indice);
+    } else {
+        cout<<"No hay una tarea registrada con ese id"<<endl;
+    }
+}
+/*=========================================================
+        Funciones para registrar entregas de tareas
+=========================================================*/
+void ReEn( List<Entrega>& ents, List<Tarea> tas, List<estudiante> estus){
+    //Datos para el registro
+    string strs;
+    int c;
+    Entrega e;
+    cout<<"--Registrando entrega"<<endl;
+    cout<<"Id de entrega:"<<endl;
+    cin>>c;
+    e.setId(c);
+    cout<<"-Lista de tareas registradas:"<<endl;
+    cout<<tas.toString()<<endl;
+    cout<<"Escriba el id de la tarea a la que pertenence:"<<endl;
+    cin>>c;
+    e.setIdTarea( c );
+    cout<<"-Lista de estudiantes"<<endl;
+    cout<<estus.toString()<<endl;
+    cout<<"Codigo alumno:"<<endl;
+    cin>>strs;
+    e.setCodigoAlumno(strs);
+    cout<<"Agregue un adjunto a la entrega:"<<endl;
+    cin>>strs;
+    e.setArchivo(strs);
+    ents.insertInList(e);
+        //Trabajaremos los archivos como si fueran un documento de texto
+
+}
+
+void ModEn( List<Entrega>& ents, List<Tarea> tas , List<estudiante> estus, int idEntrega){
+    //Datos para el registro
+    string strs;
+    int c;
+    int indice(-1);
+    for( int i = 0; i < ents.getSize(); i++){
+            if( idEntrega == ents.retrieve( i ).getId() ){
+                    indice = i;
+                    break;
+            }
+    }
+    if( indice > -1){
+    Entrega *e = ents.retrieve2(indice);
+    cout<<"--Registrando entrega"<<endl;
+    cout<<"Id de tarea:"<<endl;
+    cin>>c;
+    e->setId(c);
+    cout<<"-Lista de tareas registradas:"<<endl;
+    cout<<tas.toString()<<endl;
+    cout<<"Escriba el id de la tarea a la que pertenence:"<<endl;
+    cin>>c;
+    e->setIdTarea( c );
+    cout<<"-Lista de estudiantes"<<endl;
+    cout<<estus.toString()<<endl;
+    cout<<"Codigo alumno:"<<endl;
+    cin>>strs;
+    e->setCodigoAlumno(strs);
+    cout<<"Agregue un adjunto a la entrega:"<<endl;
+    cin>>strs;
+    e->setArchivo(strs);
+    }
+}
+
+void DelEn( List<Entrega>& ents, int  idEntrega){
+    int indice(-1);
+    for( int i = 0; i < ents.getSize(); i++){
+            if( idEntrega == ents.retrieve( i ).getId() ){
+                    indice = i;
+                    break;
+            }
+    }
+    if(indice >-1){
+        ents.deleteInList(indice);
+    }
+}
+
+void calificarMateria( List<Materia>& LM, List<Participacion> par, List<Entrega> ene ){
+        std::string NRCmateria, codAlumno;
+        Materia* m;
+        cout<<"Escriba el NRC de la materia"<<endl;
+        cin>>NRCmateria;
+        cout<<"Escriba el codigo del estudiante a calificar"<<endl;
+        cin>>codAlumno;
+        //Vamos a buscar la materia para calificar al estudiante
+        for(int x=1;x<=LM.contador;x++){
+           m= LM.retrieve2(x);
+           if(m->get_NRC()==NRCmateria){
+                m->calificar(NRCmateria, codAlumno, par, ene);
+                cout<<"Calificacion agregada"<<endl;
+                break;
+           }
+        }
+        //Obtenemos los datos de la materia
+
+}
+
+
+
+
+
 

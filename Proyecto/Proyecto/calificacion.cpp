@@ -1,56 +1,48 @@
 #include <iostream>
 //#include "Estudiante.cpp"
 
-using namespace std;
-
 class Calificacion{
     private:
         ///Atributos
-        float calif_tarea;
-        float calif_alumno;
-        float calif_grupo;
-        int cant_tareas;
-        int cant_alumnos;
-
+        float puntaje;
+        std::string codigoAlumno;
+        std::string codigoMateria;
     public:
         ///Metodos
-        void setCalifTarea(const float& t){
-            calif_tarea=t;
+        void setPuntaje( float p ){
+            puntaje = p;
+        }
+        void setCodigoAlumno(std::string c){
+            codigoAlumno = c;
+        }
+        void setCodigoMateria(std::string c){
+            codigoMateria = c;
         }
 
-        void setCalifAlumno(const float& a){
-            calif_alumno=a;
+        float getPuntaje( ){
+            return puntaje;
+        }
+        std::string getCodigoAlumno(){
+            return codigoAlumno;
+        }
+        std::string getCodigoMateria(){
+            return codigoMateria;
         }
 
-        void setCalifGrupo(const float& g){
-            calif_grupo=g;
-        }
+        string toString(){
+            string str("");
 
-        void setCantTareas(const int& ct){
-            cant_tareas=ct;
-        }
+            char aPun[8];
 
-        void setCantAlumnos(const int& ca){
-            cant_alumnos=ca;
-        }
+            sprintf( aPun, "%f", puntaje);
 
-        float getCalifTarea() const{
-            return calif_tarea;
-        }
+            str+= "Puntaje: ";
+            str+= aPun;
+            str+= "\n codigo alumno: ";
+            str+= codigoAlumno;
+            str+= " || codigo materia: ";
+            str+= codigoMateria;
+            str+= "\n";
+     }
 
-        float getCalifAlumno() const{
-            return calif_alumno;
-        }
-
-        float getCalifGrupo() const{
-            return calif_grupo;
-        }
-
-        int getCantTareas() const{
-            return cant_tareas;
-        }
-
-        int getCantAlumnos() const{
-            return cant_alumnos;
-        }
 };
